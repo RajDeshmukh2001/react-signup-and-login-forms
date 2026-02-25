@@ -12,7 +12,7 @@ const InputField = ({ label, ...props }: InputFieldProps) => {
         <div className="flex flex-col gap-1">
             <label
                 htmlFor={props.name}
-                className="text-sm font-semibold text-neutral-700"
+                className="text-sm font-medium text-neutral-700"
             >
                 {label}
             </label>
@@ -24,7 +24,7 @@ const InputField = ({ label, ...props }: InputFieldProps) => {
                 className="px-4 py-2.5 rounded-lg border text-sm outline-none transition-all duration-200"
             />
 
-            {meta.touched && meta.error ? (
+            {meta.error ? (
                 <div className="text-xs text-red-500 mt-0.5">{meta.error}</div>
             ) : null}
         </div>

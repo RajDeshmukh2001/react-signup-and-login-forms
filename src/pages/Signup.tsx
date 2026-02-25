@@ -2,15 +2,9 @@ import { Form, Formik } from "formik";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import InputField from "../components/InputField";
-import { signupSchema } from "../utils/validationsSchema";
 import { useState } from "react";
-
-type SignupValuesProps = {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
+import type { SignupValuesProps } from "../types/signup";
+import { validateSignup } from "../utils/validateFields";
 
 const initialValues : SignupValuesProps= {
     name: "",
@@ -31,12 +25,14 @@ const Signup = () => {
             <div className="w-full p-8 max-w-md bg-white rounded-2xl border border-neutral-200">
 
                 <div className="mb-6">
-                    <h1 className="text-2xl text-center font-extrabold">Create an account</h1>
+                    <h1 className="text-xl sm:text-2xl text-center font-extrabold">Create an account</h1>
                 </div>
 
                 <Formik
                     initialValues={initialValues}
-                    validationSchema={signupSchema}
+                    validate={validateSignup}
+                    validateOnBlur={false}
+                    validateOnChange={false}
                     onSubmit={handleSubmit}
                 >
                     {() => (
@@ -72,9 +68,10 @@ const Signup = () => {
                     )}
                 </Formik>
 
-                <p className="text-sm text-center text-neutral-500 mt-6">
-                    <Link to="/" className="text-sky-800 font-semibold hover:underline">
-                        Home
+                <p className="text-sm sm:text-base text-center text-neutral-500 mt-6">
+                    Already have an account?&nbsp;
+                    <Link to="/login" className="text-sky-800 font-semibold hover:underline">
+                        Login
                     </Link>
                 </p>
             </div>
