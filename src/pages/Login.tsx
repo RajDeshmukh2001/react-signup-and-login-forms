@@ -1,11 +1,11 @@
 import { Form, Formik } from "formik";
 import InputField from "../components/InputField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
-import { loginSchema } from "../utils/validationsSchema";
 import type { LoginValuesProps } from "../types/login";
 import { validateLogin } from "../utils/validateFields";
+import { useUser } from "../context/UserContext";
 
 const initialValues: LoginValuesProps = {
     email: "",
@@ -13,19 +13,23 @@ const initialValues: LoginValuesProps = {
 }
 
 const Login = () => {
-    const [loginData, setLoginData] = useState<LoginValuesProps | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const context = useUser();
+    const navigate = useNavigate();
+
     const handleSubmit = (values: LoginValuesProps) => {
-        setLoginData(values);
-        console.log(values);
+        if (context?.userData?.email === values.email && context?.userData.password === values.password) {
+            alert("Login Successful");
+            navigate("/");
+        } else {
+            setError("Invalid email or password");
+        }
     }
 
     return (
         <main className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
-            <div className="w-full p-8 max-w-md bg-white rounded-2xl border border-neutral-200">
-
-                <div className="mb-6">
-                    <h1 className="text-xl sm:text-2xl text-center font-extrabold">Welcome Back</h1>
-                </div>
+            <div className="w-full p-8 max-w-md bg-white rounded-2xl border border-neutral-200 space-y-6">
+                <h1 className="text-xl sm:text-2xl text-center font-extrabold">Welcome Back</h1>
 
                 <Formik
                     initialValues={initialValues}
@@ -57,7 +61,11 @@ const Login = () => {
                     )}
                 </Formik>
 
-                <p className="text-sm sm:text-base text-center text-neutral-500 mt-6">
+                {error ? (
+                    <div className="text-sm text-red-500 text-center">{error}</div>
+                ) : null}
+
+                <p className="text-sm sm:text-base text-center text-neutral-500">
                     Don't have an account?&nbsp;
                     <Link to="/signup" className="text-sky-800 font-semibold hover:underline">
                         Signup
