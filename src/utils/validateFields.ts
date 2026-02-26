@@ -2,29 +2,38 @@ import type { LoginValuesProps } from "../types/login";
 import type { SignupValuesProps } from "../types/signup";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).*$/;
+const nameRegex = /^(?!.*\d)[a-zA-Z\s]{2,50}$/;
 
 export const validateSignup = (values: SignupValuesProps) => {
+    const { name, email, password, confirmPassword } = values;
     const errors: Partial<SignupValuesProps> = {};
 
-    if (!values.name) {
+    if (!name) {
         errors.name = "Name is required";
+    } else if (!nameRegex.test(name)) {
+        errors.name = "Name must only contain letters";
     }
 
-    if (!values.email) {
+    if (!email) {
         errors.email = "Email is required";
-    } else if (!emailRegex.test(values.email)) {
-        errors.email = "Enter a valid email address"
+    } else if (!emailRegex.test(email)) {
+        errors.email = "Enter a valid email"
+    } else if (email.length > 100) {
+        errors.email = "Email must not exceed 100 characters"
     }
 
-    if (!values.password) {
+    if (!password) {
         errors.password = "Password is required";
-    } else if (values.password.length < 8) {
-        errors.password = "Password must be at least 8 characters";
+    } else if (password.length < 8 || password.length > 16) {
+        errors.password = "Password must be 8 to 16 characters long";
+    } else if (!passwordRegex.test(password)) {
+        errors.password = "Password must include uppercase, lowercase, number & special character";
     }
 
-    if (!values.confirmPassword) {
+    if (!confirmPassword) {
         errors.confirmPassword = "Please confirm your password";
-    } else if (values.confirmPassword !== values.password) {
+    } else if (confirmPassword !== password) {
         errors.confirmPassword = "Passwords do not match";
     }
 
@@ -32,15 +41,16 @@ export const validateSignup = (values: SignupValuesProps) => {
 }
 
 export const validateLogin = (values: LoginValuesProps) => {
+    const { email, password } = values;
     const errors: Partial<LoginValuesProps> = {};
 
-    if (!values.email) {
+    if (!email) {
         errors.email = "Email is required";
-    } else if (!emailRegex.test(values.email)) {
+    } else if (!emailRegex.test(email)) {
         errors.email = "Enter a valid email address"
     }
 
-    if (!values.password) {
+    if (!password) {
         errors.password = "Password is required";
     }
 
