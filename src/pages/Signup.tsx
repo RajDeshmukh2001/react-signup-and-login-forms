@@ -5,7 +5,7 @@ import InputField from "../components/InputField";
 import type { SignupPropsType } from "../types/signup";
 import { validateSignup } from "../utils/validateFields";
 import axios from "axios";
-import { userSignup } from "../services/auth.service";
+import { userSignup } from "../api/auth.api";
 import toast from "react-hot-toast";
 
 const initialValues: SignupPropsType = {

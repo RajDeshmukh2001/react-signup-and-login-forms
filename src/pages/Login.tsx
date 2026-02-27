@@ -6,7 +6,7 @@ import type { LoginPropsType } from "../types/login";
 import { validateLogin } from "../utils/validateFields";
 import axios from "axios";
 import { setAuthToken } from "../utils/authToken";
-import { userLogin } from "../services/auth.service";
+import { userLogin } from "../api/auth.api";
 import toast from "react-hot-toast";
 
 const initialValues: LoginPropsType = {
