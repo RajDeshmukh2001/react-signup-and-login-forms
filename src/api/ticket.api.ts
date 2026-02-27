@@ -30,3 +30,17 @@ export const getAllTickets = async () => {
     });
     return response.data;
 }
+
+export const getTicketById = async (id: string | undefined) => {
+    const token = getAuthToken();
+    if (!token) {
+        return null;
+    }
+
+    const response = await axios.get(`${baseURI}/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    });
+    return response.data;    
+}
