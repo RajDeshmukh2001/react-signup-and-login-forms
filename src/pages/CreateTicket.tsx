@@ -29,7 +29,7 @@ const CreateTicket = () => {
         }
     }
     return (
-        <section className="w-full flex items-center justify-center mt-20">
+        <section className="w-full flex items-center justify-center mt-20 p-4">
             <div className="w-full p-8 max-w-md bg-white rounded-2xl border border-neutral-200 space-y-6">
                 <h1 className="text-xl sm:text-2xl text-center font-extrabold">Create Ticket</h1>
 
