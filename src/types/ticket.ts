@@ -6,3 +6,8 @@ export type TicketType = {
     agentName?: string;
     createdAt?: Date;
 }
+
+export type UpdateTicketType = {
+    description?: string;
+    status?: string;
+}
