@@ -7,7 +7,7 @@ const Navbar = (): JSX.Element => {
 
     return (
         <nav className="w-full p-4 md:px-20 md:py-6 flex items-center justify-between shadow-2xs">
-            <h1 className="text-2xl font-bold text-sky-800">REACT</h1>
+            <h1 className="text-2xl font-bold text-sky-800">Customer Support</h1>
 
             <ul className="flex items-center gap-6">
                 <li>
