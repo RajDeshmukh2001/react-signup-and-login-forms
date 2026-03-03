@@ -1,34 +1,15 @@
-import axios from "axios";
-import { getAuthToken } from "../utils/authToken";
+import type { SuccessResponse } from "../types/api";
+import type { User } from "../types/user";
+import { axiosInstance } from "./axiosInstance";
 
-const baseURI: string = import.meta.env.VITE_USER_URI;
+const user = axiosInstance(import.meta.env.VITE_USER_URI);
 
-export const getCurrentUser = async () => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-
-    const resposne = await axios.get(`${baseURI}/me`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
-
+export const getCurrentUser = async (): Promise<User> => {
+    const resposne = await user.get<User>(`/me`);
     return resposne.data;
 }
 
-export const getAllSupportAgents = async () => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-
-    const resposne = await axios.get(`${baseURI}?role=SUPPORT_AGENT`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
-
+export const getAllSupportAgents = async (): Promise<SuccessResponse<User>> => {
+    const resposne = await user.get<SuccessResponse<User>>(`?role=SUPPORT_AGENT`);
     return resposne.data;
 }

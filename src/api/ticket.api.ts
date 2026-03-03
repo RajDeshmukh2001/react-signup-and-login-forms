@@ -1,71 +1,33 @@
-import axios from "axios";
-import type { TicketType, UpdateTicketType } from "../types/ticket";
-import { getAuthToken } from "../utils/authToken";
+import type { SuccessResponse } from "../types/api";
+import type { AddCommentResponse, Comment } from "../types/comment";
+import type { TicketAssignment, Ticket, UpdateTicket } from "../types/ticket";
+import { axiosInstance } from "./axiosInstance";
 
-const baseURI: string = import.meta.env.VITE_TICKET_URI;
+const ticket = axiosInstance(import.meta.env.VITE_TICKET_URI);
 
-export const createTicket = async (values: TicketType) => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-    const response = await axios.post(`${baseURI}`, values, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+export const createTicket = async (values: Ticket): Promise<SuccessResponse<Ticket>> => {
+    const response = await ticket.post<SuccessResponse<Ticket>>(``, values);
     return response.data;
 }
 
-export const getAllTickets = async () => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-
-    const response = await axios.get(`${baseURI}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+export const getAllTickets = async (): Promise<SuccessResponse<Ticket[]>> => {
+    const response = await ticket.get<SuccessResponse<Ticket[]>>(``);
     return response.data;
 }
 
-export const getTicketById = async (id: string | undefined) => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-
-    const response = await axios.get(`${baseURI}/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+export const getTicketById = async (id: string | undefined): Promise<SuccessResponse<Ticket>> => {
+    const response = await ticket.get<SuccessResponse<Ticket>>(`/${id}`);
     return response.data;
 }
 
-export const getCommentsByTicketId = async (id: string | undefined) => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-
-    const response = await axios.get(`${baseURI}/${id}/comments`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+export const getCommentsByTicketId = async (id: string | undefined): Promise<SuccessResponse<Comment[]>> => {
+    const response = await ticket.get<SuccessResponse<Comment[]>>(`/${id}/comments`);
     return response.data;
 }
 
-export const updateTicket = async (id: string | undefined, values: UpdateTicketType) => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
+export const updateTicket = async (id: string | undefined, values: UpdateTicket): Promise<SuccessResponse<Ticket> | undefined> => {
     const { description, status, priority } = values
-    const payload: UpdateTicketType = {};
+    const payload: UpdateTicket = {};
 
     if (values.description?.trim() !== "") {
         payload.description = description;
@@ -81,40 +43,24 @@ export const updateTicket = async (id: string | undefined, values: UpdateTicketT
         payload.priority = priority;
     }
 
-    if (Object.keys(payload).length === 0) return;
+    if (Object.keys(payload).length === 0) {
+        throw new Error("Nothing to update");
+    };
 
-    const response = await axios.patch(`${baseURI}/${id}`, payload, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+    const response = await ticket.patch<SuccessResponse<Ticket>>(`/${id}`, payload);
     return response.data;
 }
 
-export const addComment = async (id: string | undefined, body: string) => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-
-    const response = await axios.post(`${baseURI}/${id}/comments`, { body }, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+export const addComment = async (id: string | undefined, body: string): Promise<SuccessResponse<AddCommentResponse>> => {
+    const response = await ticket.post<SuccessResponse<AddCommentResponse>>(`/${id}/comments`, { body });
     return response.data;
 }
 
-export const assignTicket = async (id: string | undefined, assignedByUserId: string | undefined, assignedToUserId: string) => {
-    const token = getAuthToken();
-    if (!token) {
-        return null;
-    }
-
-    const response = await axios.post(`${baseURI}/${id}/assign`, { assignedByUserId, assignedToUserId }, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
+export const assignTicket = async (
+    id: string | undefined, 
+    assignedByUserId: string | undefined, 
+    assignedToUserId: string
+): Promise<SuccessResponse<TicketAssignment>> => {
+    const response = await ticket.post<SuccessResponse<TicketAssignment>>(`/${id}/assign`, { assignedByUserId, assignedToUserId });
     return response.data;
 }
