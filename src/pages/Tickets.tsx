@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import { getAllTickets } from "../api/ticket.api";
 import type { TicketType } from "../types/ticket";
 import useIsAllowed from "../hooks/useIsAllowed";
 import TicketActions from "../components/TicketActions";
 
-const Tickets = () => {
+const Tickets = (): JSX.Element => {
     const [tickets, setTickets] = useState<(TicketType | null)[]>();
     const isAllowed = useIsAllowed();
 
     useEffect(() => {
-        const fetchTickets = async () => {
+        const fetchTickets = async (): Promise<void> => {
             const data = await getAllTickets();
             setTickets(data.data);
         };

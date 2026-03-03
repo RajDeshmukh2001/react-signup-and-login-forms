@@ -2,23 +2,24 @@ import { Form, Formik } from "formik";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
-import type { SignupPropsType } from "../types/signup";
 import { validateSignup } from "../utils/validateFields";
 import axios from "axios";
 import { userSignup } from "../api/auth.api";
 import toast from "react-hot-toast";
+import type { JSX } from "react";
+import type { SignupRequest } from "../types/auth";
 
-const initialValues: SignupPropsType = {
+const initialValues: SignupRequest = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
 }
 
-const Signup = () => {
+const Signup = (): JSX.Element => {
     const navigate = useNavigate();
 
-    const handleSubmit = async (values: SignupPropsType) => {
+    const handleSubmit = async (values: SignupRequest): Promise<void> => {
         try {
             const data = await userSignup(values);
             if (data.success) {

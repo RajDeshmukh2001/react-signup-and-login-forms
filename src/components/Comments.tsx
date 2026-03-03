@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import type { CommentType } from "../types/comment";
 import { getCommentsByTicketId } from "../api/ticket.api";
 
-const Comments = ({ id }: { id: string | undefined }) => {
+const Comments = ({ id }: { id: string | undefined }): JSX.Element => {
     const [comments, setComments] = useState<(CommentType | null)[]>();
 
     useEffect(() => {

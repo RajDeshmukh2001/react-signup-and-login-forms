@@ -1,8 +1,9 @@
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
+import type { JSX } from "react";
 
-function App() {
+function App(): JSX.Element {
   return (
     <>
       <Toaster />

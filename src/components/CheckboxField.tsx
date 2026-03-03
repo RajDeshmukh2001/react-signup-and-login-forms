@@ -1,4 +1,5 @@
 import { useField } from "formik";
+import type { JSX } from "react";
 
 type CheckboxFieldProps = {
     name: string;
@@ -7,7 +8,7 @@ type CheckboxFieldProps = {
     value?: string;
 }
 
-const CheckboxField = ({ label, ...props }: CheckboxFieldProps) => {
+const CheckboxField = ({ label, ...props }: CheckboxFieldProps): JSX.Element => {
     const [field] = useField(props);
 
     return (

@@ -25,6 +25,8 @@ export default defineConfig([
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/consistent-type-imports': 'warn',
       '@typescript-eslint/no-inferrable-types': 'warn',
+      '@typescript-eslint/explicit-module-boundary-types': 'warn',
+
 
       // Best Practices
       'eqeqeq': ['error', 'always'],

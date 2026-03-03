@@ -2,24 +2,25 @@ import { Form, Formik } from "formik";
 import InputField from "../components/InputField";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import type { LoginPropsType } from "../types/login";
 import { validateLogin } from "../utils/validateFields";
 import axios from "axios";
 import { setAuthToken } from "../utils/authToken";
 import { userLogin } from "../api/auth.api";
 import toast from "react-hot-toast";
 import useUser from "../hooks/useUser";
+import type { JSX } from "react";
+import type { LoginRequest } from "../types/auth";
 
-const initialValues: LoginPropsType = {
+const initialValues: LoginRequest = {
     email: "",
     password: "",
 }
 
-const Login = () => {
+const Login = (): JSX.Element => {
     const { fetchCurrentUser } = useUser();
     const navigate = useNavigate();
 
-    const handleSubmit = async (values: LoginPropsType) => {
+    const handleSubmit = async (values: LoginRequest): Promise<void> => {
         try {
             const data = await userLogin(values);
             if (data.success) {

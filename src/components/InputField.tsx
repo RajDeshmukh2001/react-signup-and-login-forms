@@ -1,4 +1,5 @@
 import { useField } from "formik";
+import type { JSX } from "react";
 
 type InputFieldProps = {
     name: string;
@@ -6,7 +7,7 @@ type InputFieldProps = {
     type: string;
 }
 
-const InputField = ({ label, ...props }: InputFieldProps) => {
+const InputField = ({ label, ...props }: InputFieldProps): JSX.Element => {
     const [field, meta] = useField(props);
 
     return (

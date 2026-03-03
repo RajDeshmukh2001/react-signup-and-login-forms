@@ -8,17 +8,18 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import useIsAllowed from "../hooks/useIsAllowed";
-import { useEffect } from "react";
+import { useEffect, type JSX } from "react";
 
 const initialValues: TicketType = {
     title: "",
     description: "",
 }
 
-const CreateTicket = () => {
+const CreateTicket = (): JSX.Element => {
     const navigate = useNavigate();
     const isAllowed = useIsAllowed();
-    const handleSubmit = async (values: TicketType) => {
+    
+    const handleSubmit = async (values: TicketType): Promise<void> => {
         try {
             const data = await createTicket(values)
             if (data.success) {
@@ -27,7 +28,9 @@ const CreateTicket = () => {
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                toast.error(error.response?.data?.message || "Something went wrong. Try again");
+                toast.error(error.response?.data?.message);
+            } else {
+                toast.error("Something went wrong. Try again");
             }
         }
     }

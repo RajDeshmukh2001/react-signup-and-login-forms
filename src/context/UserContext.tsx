@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, type JSX } from "react";
 import type { User } from "../types/user";
 import { getCurrentUser } from "../api/user.api";
 import { removeAuthToken } from "../utils/authToken";
@@ -17,7 +17,7 @@ const UserContext = createContext<UserContextType>({
     fetchCurrentUser: async () => {},
 });
 
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+export const UserProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 

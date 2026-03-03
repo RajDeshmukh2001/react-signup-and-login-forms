@@ -5,8 +5,9 @@ import { validateComment } from "../utils/validateTicket";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { addComment } from "../api/ticket.api";
+import type { JSX } from "react";
 
-const AddComment = ({ id }: { id: string | undefined }) => {
+const AddComment = ({ id }: { id: string | undefined }): JSX.Element => {
     const handleSubmit = async (values: { body: string }) => {
         try {
             const data = await addComment(id, values.body);

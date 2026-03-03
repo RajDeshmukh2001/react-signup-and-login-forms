@@ -1,9 +1,11 @@
+import type { JSX } from "react";
+
 type ButtonProps = {
     type: "submit" | "reset" | "button" | undefined;
     label: string;
 }
 
-const Button = ({ type, label }: ButtonProps) => {
+const Button = ({ type, label }: ButtonProps): JSX.Element => {
     return (
         <button
             type={type}

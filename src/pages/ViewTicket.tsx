@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import type { TicketType } from "../types/ticket";
 import { getTicketById } from "../api/ticket.api";
 import { useParams } from "react-router-dom";
@@ -6,13 +6,13 @@ import Comments from "../components/Comments";
 import AddComment from "../components/AddComment";
 import useIsAllowed from "../hooks/useIsAllowed";
 
-const ViewTicket = () => {
+const ViewTicket = (): JSX.Element => {
     const { id } = useParams();
     const [ticket, setTicket] = useState<TicketType | null>();
     const isAllowed = useIsAllowed();
 
     useEffect(() => {
-        const fetchTicket = async () => {
+        const fetchTicket = async (): Promise<void> => {
             const data = await getTicketById(id);
             setTicket(data.data);
         };

@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import SelectField from "../components/SelectField";
+import type { JSX } from "react";
 
 const initialValues: UpdateTicketType = {
     description: "",
@@ -16,11 +17,12 @@ const initialValues: UpdateTicketType = {
     priority: "",
 }
 
-const UpdateTicket = () => {
+const UpdateTicket = (): JSX.Element => {
     const { id } = useParams();
     const navigate = useNavigate();
     const isAllowed = useIsAllowed();
-    const handleSubmit = async (values: UpdateTicketType) => {
+
+    const handleSubmit = async (values: UpdateTicketType): Promise<void> => {
         try {
             const data = await updateTicket(id, values);
             if (data.success) {

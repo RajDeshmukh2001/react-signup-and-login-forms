@@ -10,8 +10,9 @@ import Tickets from "../pages/Tickets";
 import Layout from "../components/Layout";
 import UpdateTicket from "../pages/UpdateTicket";
 import AssignTicket from "../pages/AssignTicket";
+import type { JSX } from "react";
 
-const AppRoutes = () => {
+const AppRoutes = (): JSX.Element => {
     return (
         <BrowserRouter>
             <Routes>

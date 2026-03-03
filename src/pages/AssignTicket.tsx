@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import Button from "../components/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import type { SupportAgentType, User } from "../types/user";
 import { getAllSupportAgents } from "../api/user.api";
 import SelectField from "../components/SelectField";
@@ -18,14 +18,14 @@ const initialValues: AssignTicketType = {
     assignedToUserId: "",
 }
 
-const AssignTicket = () => {
+const AssignTicket = (): JSX.Element => {
     const { id } = useParams();
     const { user } = useUser();
     const navigate = useNavigate();
     const [supportAgents, setSupportAgents] = useState<SupportAgentType[]>([]);
 
     useEffect(() => {
-        const fetchAllSupportAgents = async () => {
+        const fetchAllSupportAgents = async (): Promise<void> => {
             const data = await getAllSupportAgents();
             const agents = data.data
             .filter((agent: User) => agent.id !== user?.id)
@@ -39,7 +39,7 @@ const AssignTicket = () => {
         fetchAllSupportAgents();
     }, [user?.id]);
 
-    const handleSubmit = async (values: AssignTicketType) => {
+    const handleSubmit = async (values: AssignTicketType): Promise<void> => {
         try {
             const data = await assignTicket(id, user?.id, values?.assignedToUserId);
             if (data.success) {

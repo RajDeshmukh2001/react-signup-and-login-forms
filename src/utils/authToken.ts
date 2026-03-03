@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-export const setAuthToken = (token: string) => {
+export const setAuthToken = (token: string): void => {
     Cookies.set("token", token, {
         path: "/",
         expires: 2,
@@ -8,10 +8,10 @@ export const setAuthToken = (token: string) => {
     });
 };
 
-export const getAuthToken = () => {
+export const getAuthToken = (): string | undefined => {
     return Cookies.get("token");
 };
 
-export const removeAuthToken = () => {
-    return Cookies.remove("token");
+export const removeAuthToken = (): void => {
+    Cookies.remove("token");
 }
