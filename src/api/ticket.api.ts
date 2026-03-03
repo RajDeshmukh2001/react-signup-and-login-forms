@@ -1,6 +1,6 @@
 import type { SuccessResponse } from "../types/api";
 import type { AddCommentResponse, Comment } from "../types/comment";
-import type { TicketAssignment, Ticket, UpdateTicket } from "../types/ticket";
+import type { TicketAssignment, Ticket, UpdateTicketPayload } from "../types/ticket";
 import { axiosInstance } from "./axiosInstance";
 
 const ticket = axiosInstance(import.meta.env.VITE_TICKET_URI);
@@ -25,9 +25,9 @@ export const getCommentsByTicketId = async (id: string | undefined): Promise<Suc
     return response.data;
 }
 
-export const updateTicket = async (id: string | undefined, values: UpdateTicket): Promise<SuccessResponse<Ticket> | undefined> => {
+export const updateTicket = async (id: string | undefined, values: UpdateTicketPayload): Promise<SuccessResponse<Ticket> | undefined> => {
     const { description, status, priority } = values
-    const payload: UpdateTicket = {};
+    const payload: UpdateTicketPayload = {};
 
     if (values.description?.trim() !== "") {
         payload.description = description;

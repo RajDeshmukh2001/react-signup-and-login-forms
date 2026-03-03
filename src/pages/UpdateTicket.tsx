@@ -3,7 +3,7 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import useIsAllowed from "../hooks/useIsAllowed";
 import CheckboxField from "../components/CheckboxField";
-import type { UpdateTicket } from "../types/ticket";
+import type { UpdateTicketPayload } from "../types/ticket";
 import { updateTicket } from "../api/ticket.api";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -11,7 +11,7 @@ import axios from "axios";
 import SelectField from "../components/SelectField";
 import type { JSX } from "react";
 
-const initialValues: UpdateTicket = {
+const initialValues: UpdateTicketPayload = {
     description: "",
     status: "",
     priority: "",
@@ -22,7 +22,7 @@ const UpdateTicket = (): JSX.Element => {
     const navigate = useNavigate();
     const isAllowed = useIsAllowed();
 
-    const handleSubmit = async (values: UpdateTicket): Promise<void> => {
+    const handleSubmit = async (values: UpdateTicketPayload): Promise<void> => {
         try {
             const data = await updateTicket(id, values);
             if (data?.success) {

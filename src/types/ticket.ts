@@ -8,7 +8,7 @@ export type Ticket = {
     createdAt?: Date;
 }
 
-export type UpdateTicket = Partial<Pick<Ticket, "description" | "status" | "priority">>
+export type UpdateTicketPayload = Partial<Pick<Ticket, "description" | "status" | "priority">>
 
 export type TicketAssignment = {
     id: string;
