@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import Button from "../components/Button";
 import { useEffect, useState, type JSX } from "react";
-import type { SupportAgentType, User } from "../types/user";
+import type { SupportAgent, User } from "../types/user";
 import { getAllSupportAgents } from "../api/user.api";
 import SelectField from "../components/SelectField";
 import { assignTicket } from "../api/ticket.api";
@@ -22,7 +22,7 @@ const AssignTicket = (): JSX.Element => {
     const { id } = useParams();
     const { user } = useUser();
     const navigate = useNavigate();
-    const [supportAgents, setSupportAgents] = useState<SupportAgentType[]>([]);
+    const [supportAgents, setSupportAgents] = useState<SupportAgent[]>([]);
 
     useEffect(() => {
         const fetchAllSupportAgents = async (): Promise<void> => {

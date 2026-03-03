@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from "react";
-import type { TicketType } from "../types/ticket";
+import type { Ticket } from "../types/ticket";
 import { getTicketById } from "../api/ticket.api";
 import { useParams } from "react-router-dom";
 import Comments from "../components/Comments";
@@ -8,7 +8,7 @@ import useIsAllowed from "../hooks/useIsAllowed";
 
 const ViewTicket = (): JSX.Element => {
     const { id } = useParams();
-    const [ticket, setTicket] = useState<TicketType | null>();
+    const [ticket, setTicket] = useState<Ticket | null>();
     const isAllowed = useIsAllowed();
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import type { TicketType } from "../types/ticket";
+import type { Ticket } from "../types/ticket";
 import { validateTicket } from "../utils/validateTicket";
 import axios from "axios";
 import { createTicket } from "../api/ticket.api";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import useIsAllowed from "../hooks/useIsAllowed";
 import { useEffect, type JSX } from "react";
 
-const initialValues: TicketType = {
+const initialValues: Ticket = {
     title: "",
     description: "",
 }
@@ -19,7 +19,7 @@ const CreateTicket = (): JSX.Element => {
     const navigate = useNavigate();
     const isAllowed = useIsAllowed();
     
-    const handleSubmit = async (values: TicketType): Promise<void> => {
+    const handleSubmit = async (values: Ticket): Promise<void> => {
         try {
             const data = await createTicket(values)
             if (data.success) {

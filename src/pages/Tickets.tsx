@@ -1,11 +1,11 @@
 import { useEffect, useState, type JSX } from "react";
 import { getAllTickets } from "../api/ticket.api";
-import type { TicketType } from "../types/ticket";
+import type { Ticket } from "../types/ticket";
 import useIsAllowed from "../hooks/useIsAllowed";
 import TicketActions from "../components/TicketActions";
 
 const Tickets = (): JSX.Element => {
-    const [tickets, setTickets] = useState<(TicketType | null)[]>();
+    const [tickets, setTickets] = useState<Ticket[]>([]);
     const isAllowed = useIsAllowed();
 
     useEffect(() => {

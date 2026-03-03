@@ -1,8 +1,8 @@
-import type { TicketType } from "../types/ticket";
+import type { Ticket } from "../types/ticket";
 
-export const validateTicket = (values: TicketType): Partial<TicketType> => {
+export const validateTicket = (values: Ticket): Partial<Ticket> => {
     const { title, description } = values;
-    const errors: Partial<TicketType> = {};
+    const errors: Partial<Ticket> = {};
 
     if (!title.trim()) {
         errors.title = "Title is required";

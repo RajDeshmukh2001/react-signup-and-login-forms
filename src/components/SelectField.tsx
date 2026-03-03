@@ -1,11 +1,11 @@
 import { useField } from "formik";
-import type { SupportAgentType } from "../types/user";
+import type { SupportAgent } from "../types/user";
 import type { JSX } from "react";
 
 type SelectFieldProps = {
     name: string;
     label: string;
-    options: string[] | SupportAgentType[];
+    options: string[] | SupportAgent[];
 }
 
 const SelectField = ({ label, options, ...props }: SelectFieldProps): JSX.Element => {
