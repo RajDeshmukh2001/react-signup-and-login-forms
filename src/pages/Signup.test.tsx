@@ -48,6 +48,11 @@ describe("Test Signup Component", () => {
         vi.spyOn(authApi, "userSignup").mockResolvedValue({
             success: true,
             message: "Signup successful",
+            data: {
+                id: "1",
+                name: "Raj",
+                email: "raj@gmail.com",
+            }
         });
 
         fillForm();
@@ -63,6 +68,12 @@ describe("Test Signup Component", () => {
     it("Do nothing when signup success is false", async () => {
         vi.spyOn(authApi, "userSignup").mockResolvedValue({
             success: false,
+            message: "",
+            data: {
+                id: "",
+                name: "",
+                email: "",
+            }
         });
 
         fillForm();
