@@ -6,7 +6,4 @@ export type User = {
     permissions?: string[]; 
 }
 
-export type SupportAgentType = {
-    id: string;
-    name: string;
-}
+export type SupportAgent = Pick<User, "id" | "name">
