@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import Button from "../components/Button";
 import { useEffect, useState, type JSX } from "react";
-import type { SupportAgent, User } from "../types/user";
+import type { User } from "../types/user";
 import { getAllSupportAgents } from "../api/user.api";
 import SelectField from "../components/SelectField";
 import { assignTicket } from "../api/ticket.api";
@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useUser from "../hooks/useUser";
 import axios from "axios";
+import type { Option } from "../types/option";
 
 type AssignTicketType = {
     assignedToUserId: string;
@@ -22,18 +23,18 @@ const AssignTicket = (): JSX.Element => {
     const { id } = useParams();
     const { user } = useUser();
     const navigate = useNavigate();
-    const [supportAgents, setSupportAgents] = useState<SupportAgent[]>([]);
+    const [agentOptions, setAgentOptions] = useState<Option[]>([]); 
 
     useEffect(() => {
         const fetchAllSupportAgents = async (): Promise<void> => {
             const data = await getAllSupportAgents();
-            const agents = data.data
+            const options: Option[] = data.data
             .filter((agent: User) => agent.id !== user?.id)
             .map((agent: User) => ({
-                id: agent.id,
-                name: agent.name,
+                value: agent.id,
+                label: agent.name,
             }));
-            setSupportAgents(agents);
+            setAgentOptions(options);
         };
 
         fetchAllSupportAgents();
@@ -67,7 +68,7 @@ const AssignTicket = (): JSX.Element => {
                             <SelectField
                                 label="Select Support Agent"
                                 name="assignedToUserId"
-                                options={supportAgents}
+                                options={agentOptions}
                             />
 
                             <div className="mt-2">

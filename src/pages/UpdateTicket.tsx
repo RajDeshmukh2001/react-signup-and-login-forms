@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import SelectField from "../components/SelectField";
 import type { JSX } from "react";
+import type { Option } from "../types/option";
 
 const initialValues: UpdateTicketPayload = {
     description: "",
@@ -21,6 +22,16 @@ const UpdateTicket = (): JSX.Element => {
     const { id } = useParams();
     const navigate = useNavigate();
     const isAllowed = useIsAllowed();
+
+    const statusOptions: Option[] = ["IN_PROGRESS", "CLOSED"].map(status => ({
+        label: status,
+        value: status,
+    }));
+
+    const priorityOptions: Option[] = ["LOW", "MEDIUM", "HIGH"].map(priority => ({
+        label: priority,
+        value: priority,
+    }));
 
     const handleSubmit = async (values: UpdateTicketPayload): Promise<void> => {
         try {
@@ -60,23 +71,22 @@ const UpdateTicket = (): JSX.Element => {
                                     label="Close Ticket"
                                     name="status"
                                     type="checkbox"
-                                    value="CLOSED"
                                 />
                             )}
 
                             {isAllowed("UPDATE_TICKET_STATUS") && (
                                 <SelectField
-                                    label="Status" 
-                                    name="status" 
-                                    options={["IN_PROGRESS", "CLOSED"]} 
+                                    label="Status"
+                                    name="status"
+                                    options={statusOptions}
                                 />
                             )}
 
                             {isAllowed("UPDATE_TICKET_PRIORITY") && (
                                 <SelectField
-                                    label="Priority" 
-                                    name="priority" 
-                                    options={["LOW", "MEDIUM", "HIGH"]} 
+                                    label="Priority"
+                                    name="priority"
+                                    options={priorityOptions}
                                 />
                             )}
 
