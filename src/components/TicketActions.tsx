@@ -11,7 +11,7 @@ const TicketActions = ({ ticketId, status }: TicketActionsPropsType): JSX.Elemen
     const isAllowed = useIsAllowed();
 
     return (
-        <>
+        <div className="space-x-2">
             <Link to={`/tickets/${ticketId}`} className="text-sky-800 hover:text-sky-500">View</Link>
             {
                 status !== "CLOSED" &&
@@ -37,7 +37,7 @@ const TicketActions = ({ ticketId, status }: TicketActionsPropsType): JSX.Elemen
                     }
                 </>
             }
-        </>
+        </div>
     )
 }
 

@@ -31,14 +31,6 @@ const Tickets = (): JSX.Element => {
         <div className="w-full flex flex-col items-center justify-center gap-4 p-4 md:p-20">
             <h1 className="text-xl sm:text-2xl font-extrabold">Tickets</h1>
 
-            {/* {tickets?.length === 0 &&
-                <tr>
-                    <td colSpan={6} className="py-10 text-center text-neutral-400">
-                        No tickets found
-                    </td>
-                </tr>
-            } */}
-
             <Table>
                 <TableHeader>
                     <TableRow>
