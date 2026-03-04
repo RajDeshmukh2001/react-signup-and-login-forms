@@ -1,19 +1,11 @@
-import { useEffect, useState, type JSX } from "react";
 import type { Comment } from "../types/comment";
-import { getCommentsByTicketId } from "../api/ticket.api";
+import type { JSX } from "react";
 
-const Comments = ({ id }: { id: string | undefined }): JSX.Element => {
-    const [comments, setComments] = useState<Comment[]>([]);
+type CommentsProps = {
+    comments: Comment[];
+};
 
-    useEffect(() => {
-        const fetchComments = async () => {
-            const data = await getCommentsByTicketId(id);
-            setComments(data.data);
-        };
-
-        fetchComments();
-    }, [id]);
-
+const Comments = ({ comments }: CommentsProps): JSX.Element => {
     return (
         <div className="border-t border-neutral-200 pt-4 space-y-4">
             <h1 className="font-semibold">Comments</h1>
@@ -24,7 +16,6 @@ const Comments = ({ id }: { id: string | undefined }): JSX.Element => {
                         <h5>{comment.createdAt ? new Date(comment.createdAt).toLocaleDateString() : "-"}</h5>
                         <h5>{comment.commenter}</h5>
                     </div>
-
                     <p className="text-sm sm:text-base">{comment.comment}</p>
                 </div>
             ))}
@@ -33,7 +24,7 @@ const Comments = ({ id }: { id: string | undefined }): JSX.Element => {
                 <p className="text-neutral-400">No Comments</p>
             }
         </div>
-    )
-}
+    );
+};
 
 export default Comments;
