@@ -1,0 +1,61 @@
+import { useCallback, useEffect, useState, type JSX } from "react"
+import { useParams } from "react-router-dom";
+import type { Ticket } from "../types/ticket";
+import useIsAllowed from "../hooks/useIsAllowed";
+import { addComment, getCommentsByTicketId, getTicketById } from "../api/ticket.api";
+import toast from "react-hot-toast";
+import axios from "axios";
+import ViewTicket from "../components/ViewTicket";
+import Comments from "../components/Comments";
+import AddComment from "../components/AddComment";
+import type { Comment } from "../types/comment";
+
+const TicketDetails = (): JSX.Element => {
+    const { id } = useParams();
+    const [ticket, setTicket] = useState<Ticket | null>(null);
+    const [comments, setComments] = useState<Comment[]>([]);
+    const isAllowed = useIsAllowed();
+
+    const fetchComments = useCallback(async (): Promise<void> => {
+        const data = await getCommentsByTicketId(id);
+        setComments(data.data);
+    }, [id]);
+
+    useEffect(() => {
+        const fetchTicketDetails = async (): Promise<void> => {
+            const ticketData = await getTicketById(id);
+            setTicket(ticketData.data);
+            await fetchComments();
+        };
+
+        fetchTicketDetails();
+    }, [id, fetchComments]);
+
+
+    const handleAddComment = async (values: { body: string }, resetForm: () => void ): Promise<void> => {
+        try {
+            const data = await addComment(id, values.body);
+            if (data.success) {
+                toast.success(data.message);
+                await fetchComments();
+                resetForm();
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message);
+            }
+        }
+    }
+
+    return (
+        <div className="w-full flex justify-center px-4 py-10 md:p-20">
+            <div className="w-full border border-neutral-200 p-6 rounded-2xl space-y-4 md:space-y-6">
+                <ViewTicket ticket={ticket} isAllowed={isAllowed} />
+                {ticket?.status !== "CLOSED" && <AddComment onSubmit={handleAddComment} />}
+                <Comments comments={comments} />
+            </div>
+        </div>
+    )
+}
+
+export default TicketDetails;
