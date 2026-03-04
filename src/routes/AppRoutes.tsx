@@ -5,12 +5,12 @@ import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import CreateTicket from "../pages/CreateTicket";
-import ViewTicket from "../pages/ViewTicket";
 import Tickets from "../pages/Tickets";
 import Layout from "../components/Layout";
 import UpdateTicket from "../pages/UpdateTicket";
 import AssignTicket from "../pages/AssignTicket";
 import type { JSX } from "react";
+import TicketDetails from "../pages/TicketDetails";
 
 const AppRoutes = (): JSX.Element => {
     return (
@@ -24,7 +24,7 @@ const AppRoutes = (): JSX.Element => {
                     <Route path="/" element={<Home />} />
                     <Route path="/tickets" element={<Tickets />} />
                     <Route path="/tickets/create" element={<CreateTicket />} />
-                    <Route path="/tickets/:id" element={<ViewTicket />} />
+                    <Route path="/tickets/:id" element={<TicketDetails />} />
                     <Route path="/tickets/:id/edit" element={<UpdateTicket />} />
                     <Route path="/tickets/:id/assign" element={<AssignTicket />} />
                 </Route>
