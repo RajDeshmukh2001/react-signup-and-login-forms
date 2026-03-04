@@ -9,7 +9,7 @@ export const getCurrentUser = async (): Promise<User> => {
     return resposne.data;
 }
 
-export const getAllSupportAgents = async (): Promise<SuccessResponse<User>> => {
-    const resposne = await user.get<SuccessResponse<User>>(`?role=SUPPORT_AGENT`);
+export const getAllSupportAgents = async (): Promise<SuccessResponse<User[]>> => {
+    const resposne = await user.get<SuccessResponse<User[]>>(`?role=SUPPORT_AGENT`);
     return resposne.data;
 }
