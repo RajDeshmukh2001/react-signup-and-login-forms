@@ -5,7 +5,6 @@ type CheckboxFieldProps = {
     name: string;
     label: string;
     type: string;
-    value?: string;
 }
 
 const CheckboxField = ({ label, ...props }: CheckboxFieldProps): JSX.Element => {
