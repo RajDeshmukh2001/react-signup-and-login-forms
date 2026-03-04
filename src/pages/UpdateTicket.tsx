@@ -2,7 +2,6 @@ import { Form, Formik } from "formik";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import useIsAllowed from "../hooks/useIsAllowed";
-import CheckboxField from "../components/CheckboxField";
 import type { UpdateTicketPayload } from "../types/ticket";
 import { updateTicket } from "../api/ticket.api";
 import { useNavigate, useParams } from "react-router-dom";
@@ -63,14 +62,6 @@ const UpdateTicket = (): JSX.Element => {
                                     label="Description"
                                     name="description"
                                     type="textarea"
-                                />
-                            )}
-
-                            {isAllowed("CLOSE_TICKET") && (
-                                <CheckboxField
-                                    label="Close Ticket"
-                                    name="status"
-                                    type="checkbox"
                                 />
                             )}
 
