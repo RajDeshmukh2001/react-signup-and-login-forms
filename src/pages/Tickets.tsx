@@ -40,7 +40,8 @@ const Tickets = (): JSX.Element => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {tickets.map((ticket) => (
+                    {tickets.length !== 0  ? 
+                    tickets.map((ticket) => (
                         <TableRow key={ticket.id}>
                             <TableCell className="font-medium">{ticket.title}</TableCell>
                             <TableCell>{ticket.status}</TableCell>
@@ -51,14 +52,14 @@ const Tickets = (): JSX.Element => {
                             <TableCell>{ticket?.createdAt ? new Date(ticket.createdAt).toLocaleDateString() : "-"}</TableCell>
                             <TableCell>
                                 <TicketActions
-                                    ticketId={ticket?.id}
-                                    status={ticket?.status}
+                                    ticketId={ticket.id}
+                                    status={ticket.status}
+                                    isAllowed={isAllowed}
                                 />
                             </TableCell>
                         </TableRow>
-                    ))}
-
-                    {tickets.length === 0 &&
+                    ))
+                    :
                         <TableEmpty colSpan={tableHeaders.length} message="No tickets found" />
                     }
                 </TableBody>
