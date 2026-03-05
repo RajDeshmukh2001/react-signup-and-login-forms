@@ -11,6 +11,7 @@ import UpdateTicket from "../pages/UpdateTicket";
 import AssignTicket from "../pages/AssignTicket";
 import type { JSX } from "react";
 import TicketDetails from "../pages/TicketDetails";
+import { Paths } from "../constants/routes.const";
 
 const AppRoutes = (): JSX.Element => {
     return (
@@ -21,15 +22,15 @@ const AppRoutes = (): JSX.Element => {
                         <Layout />
                     </ProtectedRoute>
                 }>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/tickets" element={<Tickets />} />
-                    <Route path="/tickets/create" element={<CreateTicket />} />
-                    <Route path="/tickets/:id" element={<TicketDetails />} />
-                    <Route path="/tickets/:id/edit" element={<UpdateTicket />} />
-                    <Route path="/tickets/:id/assign" element={<AssignTicket />} />
+                    <Route path={Paths.HOME} element={<Home />} />
+                    <Route path={Paths.TICKETS} element={<Tickets />} />
+                    <Route path={Paths.TICKET_CREATE} element={<CreateTicket />} />
+                    <Route path={Paths.TICKET_DETAILS(":id")} element={<TicketDetails />} />
+                    <Route path={Paths.TICKET_EDIT(":id")} element={<UpdateTicket />} />
+                    <Route path={Paths.TICKET_ASSIGN(":id")} element={<AssignTicket />} />
                 </Route>
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Login />} />
+                <Route path={Paths.SIGNUP} element={<Signup />} />
+                <Route path={Paths.LOGIN} element={<Login />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
