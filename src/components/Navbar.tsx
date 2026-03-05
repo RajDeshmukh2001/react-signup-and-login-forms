@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import useIsAllowed from "../hooks/useIsAllowed";
 import type { JSX } from "react";
+import { TicketPermission } from "../constants/ticket.const";
 
 const Navbar = (): JSX.Element => {
     const isAllowed = useIsAllowed();
@@ -18,7 +19,7 @@ const Navbar = (): JSX.Element => {
                         Home
                     </Link>
                 </li>
-                {isAllowed("CREATE_TICKET") &&
+                {isAllowed(TicketPermission.CREATE_TICKET) &&
                     <li>
                         <Link
                             to="/tickets/create"

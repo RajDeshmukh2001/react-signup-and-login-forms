@@ -10,6 +10,7 @@ import Comments from "../components/Comments";
 import AddCommentForm from "../components/AddCommentForm";
 import type { Comment } from "../types/comment";
 import Button from "../components/Button";
+import { TicketPermission, TicketStatus } from "../constants/ticket.const";
 
 const TicketDetails = (): JSX.Element => {
     const { id } = useParams();
@@ -33,7 +34,7 @@ const TicketDetails = (): JSX.Element => {
     }, [id, fetchComments]);
 
 
-    const handleAddComment = async (values: { body: string }, resetForm: () => void ): Promise<void> => {
+    const handleAddComment = async (values: { body: string }, resetForm: () => void): Promise<void> => {
         try {
             const data = await addComment(id, values.body);
             if (data.success) {
@@ -50,7 +51,7 @@ const TicketDetails = (): JSX.Element => {
 
     const handleCloseTicket = async (): Promise<void> => {
         try {
-            const data = await updateTicket(id, {status: "CLOSED"});
+            const data = await updateTicket(id, { status: TicketStatus.CLOSED });
             if (data?.success) {
                 toast.success(data.message);
             }
@@ -63,16 +64,18 @@ const TicketDetails = (): JSX.Element => {
 
     return (
         <div className="w-full flex flex-col justify-center gap-4 px-4 py-10 md:p-20">
-            <Button 
-                type="button" 
-                label="Close Ticket" 
-                className="w-fit self-end"
-                onClick={handleCloseTicket}
-            />
+            {isAllowed(TicketPermission.CLOSE_TICKET) &&
+                <Button
+                    type="button"
+                    label="Close Ticket"
+                    className="w-fit self-end"
+                    onClick={handleCloseTicket}
+                />
+            }
 
             <div className="w-full border border-neutral-200 p-6 rounded-2xl space-y-4 md:space-y-6">
                 <ViewTicket ticket={ticket} isAllowed={isAllowed} />
-                {ticket?.status !== "CLOSED" && <AddCommentForm onSubmit={handleAddComment} />}
+                {ticket?.status !== TicketStatus.CLOSED && <AddCommentForm onSubmit={handleAddComment} />}
                 <Comments comments={comments} />
             </div>
         </div>

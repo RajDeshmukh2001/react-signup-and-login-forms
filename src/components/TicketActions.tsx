@@ -1,5 +1,6 @@
 import type { JSX } from "react";
 import CustomLink from "./CustomLink";
+import { TicketPermission, TicketStatus } from "../constants/ticket.const";
 
 type TicketActionsPropsType = {
     ticketId: string | undefined;
@@ -12,12 +13,12 @@ const TicketActions = ({ ticketId, status, isAllowed }: TicketActionsPropsType):
         <div className="space-x-2">
             <CustomLink href={`/tickets/${ticketId}`} label="View" />
             {
-                status !== "CLOSED" &&
+                status !== TicketStatus.CLOSED &&
                 <>
                     <span className="text-neutral-300">|</span>
                     <CustomLink href={`/tickets/${ticketId}/edit`} label="Update" />
 
-                    {isAllowed("REASSIGN_TICKET") &&
+                    {isAllowed(TicketPermission.REASSIGN_TICKET) &&
                         <>
                             <span className="text-neutral-300">|</span>
                             <CustomLink href={`/tickets/${ticketId}/assign`} label="Assign" />

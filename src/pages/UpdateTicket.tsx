@@ -10,6 +10,7 @@ import axios from "axios";
 import SelectField from "../components/SelectField";
 import type { JSX } from "react";
 import type { Option } from "../types/option";
+import { TicketPermission, TicketPriority, TicketStatus } from "../constants/ticket.const";
 
 const initialValues: UpdateTicketPayload = {
     description: "",
@@ -22,12 +23,12 @@ const UpdateTicket = (): JSX.Element => {
     const navigate = useNavigate();
     const isAllowed = useIsAllowed();
 
-    const statusOptions: Option[] = ["IN_PROGRESS", "CLOSED"].map(status => ({
+    const statusOptions: Option[] = [TicketStatus.IN_PROGRESS, TicketStatus.CLOSED].map(status => ({
         label: status,
         value: status,
     }));
 
-    const priorityOptions: Option[] = ["LOW", "MEDIUM", "HIGH"].map(priority => ({
+    const priorityOptions: Option[] = [TicketPriority.LOW, TicketPriority.MEDIUM, TicketPriority.HIGH].map(priority => ({
         label: priority,
         value: priority,
     }));
@@ -57,7 +58,7 @@ const UpdateTicket = (): JSX.Element => {
                 >
                     {() => (
                         <Form className="flex flex-col gap-4">
-                            {isAllowed("UPDATE_TICKET_DESCRIPTION") && (
+                            {isAllowed(TicketPermission.UPDATE_TICKET_DESCRIPTION) && (
                                 <InputField
                                     label="Description"
                                     name="description"
@@ -65,7 +66,7 @@ const UpdateTicket = (): JSX.Element => {
                                 />
                             )}
 
-                            {isAllowed("UPDATE_TICKET_STATUS") && (
+                            {isAllowed(TicketPermission.UPDATE_TICKET_STATUS) && (
                                 <SelectField
                                     label="Status"
                                     name="status"
@@ -73,7 +74,7 @@ const UpdateTicket = (): JSX.Element => {
                                 />
                             )}
 
-                            {isAllowed("UPDATE_TICKET_PRIORITY") && (
+                            {isAllowed(TicketPermission.UPDATE_TICKET_PRIORITY) && (
                                 <SelectField
                                     label="Priority"
                                     name="priority"

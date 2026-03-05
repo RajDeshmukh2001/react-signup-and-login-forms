@@ -4,6 +4,7 @@ import type { Ticket } from "../types/ticket";
 import useIsAllowed from "../hooks/useIsAllowed";
 import TicketActions from "../components/TicketActions";
 import { Table, TableBody, TableCell, TableEmpty, TableHead, TableHeader, TableRow } from "../components/Table";
+import { TicketPermission } from "../constants/ticket.const";
 
 
 const Tickets = (): JSX.Element => {
@@ -13,7 +14,7 @@ const Tickets = (): JSX.Element => {
     const tableHeaders: string[] = [
         "Title",
         "Status",
-        isAllowed("VIEW_OWN_TICKETS") ? "Support Agent" : "Priority",
+        isAllowed(TicketPermission.VIEW_OWN_TICKETS) ? "Support Agent" : "Priority",
         "Created At",
         "Actions",
     ]
@@ -46,8 +47,8 @@ const Tickets = (): JSX.Element => {
                             <TableCell className="font-medium">{ticket.title}</TableCell>
                             <TableCell>{ticket.status}</TableCell>
                             <TableCell>
-                                {isAllowed("VIEW_OWN_TICKETS") && ticket?.agentName}
-                                {isAllowed("VIEW_ASSIGNED_TICKETS") && ticket?.priority}
+                                {isAllowed(TicketPermission.VIEW_OWN_TICKETS) && ticket?.agentName}
+                                {isAllowed(TicketPermission.VIEW_ASSIGNED_TICKETS) && ticket?.priority}
                             </TableCell>
                             <TableCell>{ticket?.createdAt ? new Date(ticket.createdAt).toLocaleDateString() : "-"}</TableCell>
                             <TableCell>

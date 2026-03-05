@@ -1,3 +1,5 @@
+import type { TicketPermission, TicketPriority, TicketStatus } from "../constants/ticket.const";
+
 export type Ticket = {
     id?: string;
     title: string;
@@ -16,3 +18,9 @@ export type TicketAssignment = {
     assignedToUserId: string;
     assignedByUserId: string;
 }
+
+export type TicketStatus = typeof TicketStatus[keyof typeof TicketStatus];
+
+export type TicketPriority = typeof TicketPriority[keyof typeof TicketPriority];
+
+export type TicketPermission = typeof TicketPermission[keyof typeof TicketPermission];

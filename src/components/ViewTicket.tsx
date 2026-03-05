@@ -1,3 +1,4 @@
+import { TicketPermission } from "../constants/ticket.const";
 import type { Ticket } from "../types/ticket";
 import type { JSX } from "react";
 
@@ -13,10 +14,10 @@ const ViewTicket = ({ ticket, isAllowed }: ViewTicketProps): JSX.Element => {
             <h2><span className="font-semibold">Description: </span>{ticket?.description}</h2>
             <h2><span className="font-semibold">Status: </span>{ticket?.status}</h2>
             <h2>
-                {isAllowed("VIEW_OWN_TICKETS") &&
+                {isAllowed(TicketPermission.VIEW_OWN_TICKETS) &&
                     <><span className="font-semibold">Support Agent: </span>{ticket?.agentName}</>
                 }
-                {isAllowed("VIEW_ASSIGNED_TICKETS") &&
+                {isAllowed(TicketPermission.VIEW_ASSIGNED_TICKETS) &&
                     <><span className="font-semibold">Priority: </span>{ticket?.priority}</>
                 }
             </h2>

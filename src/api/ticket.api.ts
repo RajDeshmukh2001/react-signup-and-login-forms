@@ -1,3 +1,4 @@
+import { TicketStatus } from "../constants/ticket.const";
 import type { SuccessResponse } from "../types/api";
 import type { AddCommentResponse, Comment } from "../types/comment";
 import type { TicketAssignment, Ticket, UpdateTicketPayload } from "../types/ticket";
@@ -33,7 +34,7 @@ export const updateTicket = async (id: string | undefined, values: UpdateTicketP
         payload.description = description;
     }
 
-    if (Array.isArray(status) && status?.includes("CLOSED")) {
+    if (Array.isArray(status) && status?.includes(TicketStatus.CLOSED)) {
         payload.status = status[0];
     } else if (typeof status === "string" && status.trim() !== "") {
         payload.status = status;

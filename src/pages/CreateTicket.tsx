@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import useIsAllowed from "../hooks/useIsAllowed";
 import { useEffect, type JSX } from "react";
+import { TicketPermission } from "../constants/ticket.const";
 
 const initialValues: Ticket = {
     title: "",
@@ -36,7 +37,7 @@ const CreateTicket = (): JSX.Element => {
     }
 
     useEffect(() => {
-        if (!isAllowed("CREATE_TICKET")) {
+        if (!isAllowed(TicketPermission.CREATE_TICKET)) {
             navigate("/");
         }
     }, []);
