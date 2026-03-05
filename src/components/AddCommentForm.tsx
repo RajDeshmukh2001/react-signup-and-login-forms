@@ -11,7 +11,7 @@ type AddCommentProps = {
     ) => Promise<void>;
 };
 
-const AddComment = ({ onSubmit }: AddCommentProps): JSX.Element => {
+const AddCommentForm = ({ onSubmit }: AddCommentProps): JSX.Element => {
     return (
         <div className="border-t border-neutral-200 py-4 space-y-4">
             <h1 className="font-semibold">Add Comment</h1>
@@ -34,4 +34,4 @@ const AddComment = ({ onSubmit }: AddCommentProps): JSX.Element => {
     );
 };
 
-export default AddComment;
+export default AddCommentForm;

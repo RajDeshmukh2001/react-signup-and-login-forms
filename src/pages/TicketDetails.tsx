@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import ViewTicket from "../components/ViewTicket";
 import Comments from "../components/Comments";
-import AddComment from "../components/AddComment";
+import AddCommentForm from "../components/AddCommentForm";
 import type { Comment } from "../types/comment";
 import Button from "../components/Button";
 
@@ -65,14 +65,14 @@ const TicketDetails = (): JSX.Element => {
         <div className="w-full flex flex-col justify-center gap-4 px-4 py-10 md:p-20">
             <Button 
                 type="button" 
-                label="Close Button" 
+                label="Close Ticket" 
                 className="w-fit self-end"
                 onClick={handleCloseTicket}
             />
 
             <div className="w-full border border-neutral-200 p-6 rounded-2xl space-y-4 md:space-y-6">
                 <ViewTicket ticket={ticket} isAllowed={isAllowed} />
-                {ticket?.status !== "CLOSED" && <AddComment onSubmit={handleAddComment} />}
+                {ticket?.status !== "CLOSED" && <AddCommentForm onSubmit={handleAddComment} />}
                 <Comments comments={comments} />
             </div>
         </div>
